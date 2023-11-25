@@ -1,0 +1,4 @@
+src-tauri/
+package.json
+package-lock.json
+generated/

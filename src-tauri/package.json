@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "cd .. && next dev",
+    "build": "cd .. && next build"
+  },
+  "prisma": {
+    "seed": "prisma/seed.sh"
+  }
+}

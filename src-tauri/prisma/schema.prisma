@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider    = "cargo prisma"
+  output      = "../src/db.rs"
+  module_path = "db"
+}
+
+model User {
+  id         String      @id @default(uuid())
+  name       String
+  shiftDates ShiftDate[]
+}
+
+model ShiftType {
+  id        String      @id @default(uuid())
+  name      String
+  color     String
+  ShiftDate ShiftDate[]
+}
+
+model ShiftDate {
+  id          String    @id @default(uuid())
+  year        Int
+  month       Int
+  day         Int
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  shiftType   ShiftType @relation(fields: [shiftTypeId], references: [id], onDelete: Cascade)
+  shiftTypeId String
+
+  @@unique([year, month, day, userId])
+}
